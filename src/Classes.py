@@ -13,28 +13,28 @@ class AbstractAPI(ABC):
         pass
 
 
-#
-# class Super_job(AbstractAPI):
-#     def get_vacancies(self, text):
-#         headers = {
-#             "X-Api-App-Id": "v3.r.138164921.800046555def46f665df567d74eae1830a078497.7da492b6fa77911d59b5f93011f3f359d2866a99"}
-#         params = {"keyword": text}
-#         vacancies = requests.get("	https://api.superjob.ru/2.0/vacancies/", params=params, headers=headers).json()
-#         return vacancies["objects"]
-#
-#     def filter_vacancies(self, text):
-#         vacancies = self.get_vacancies(text)
-#         vacancies_filter = []
-#         for vacancy in vacancies:
-#             vacancies_filter.append({
-#                 "name": vacancy["profession"],
-#                 "url": vacancy["link"],
-#                 "salary_from": vacancy["payment_from"],
-#                 "salary_to": vacancy["payment_to"],
-#                 "description": vacancy["candidat"]
-#             })
-#         return vacancies_filter
-#
+
+class Super_job(AbstractAPI):
+    def get_vacancies(self, text):
+        headers = {
+            "X-Api-App-Id": "v3.r.138164921.800046555def46f665df567d74eae1830a078497.7da492b6fa77911d59b5f93011f3f359d2866a99"}
+        params = {"keyword": text}
+        vacancies = requests.get("	https://api.superjob.ru/2.0/vacancies/", params=params, headers=headers).json()
+        return vacancies["objects"]
+
+    def filter_vacancies(self, text):
+        vacancies = self.get_vacancies(text)
+        vacancies_filter = []
+        for vacancy in vacancies:
+            vacancies_filter.append({
+                "name": vacancy["profession"],
+                "url": vacancy["link"],
+                "salary_from": vacancy["payment_from"],
+                "salary_to": vacancy["payment_to"],
+                "description": vacancy["candidat"]
+            })
+        return vacancies_filter
+
 
 class Hh_ru(AbstractAPI):
     def get_vacancies(self, text):
@@ -53,6 +53,7 @@ class Hh_ru(AbstractAPI):
                     salary_from = vacancy['salary']['from']
                 if vacancy['salary']['to'] is not None:
                     salary_to = vacancy['salary']['to']
+
             data = {
                 "name": vacancy["name"],
                 "url": vacancy["url"],
@@ -63,7 +64,7 @@ class Hh_ru(AbstractAPI):
             vacancies_filter.append(data)
         return vacancies_filter
 
-
-sj = Hh_ru()
-print(sj.filter_vacancies("python"))
+#
+# sj = Hh_ru()
+# print(sj.filter_vacancies("python"))
 
