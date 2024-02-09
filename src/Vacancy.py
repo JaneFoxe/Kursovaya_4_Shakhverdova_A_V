@@ -8,3 +8,10 @@ class Vacancy:
         self.salary_to = salary_to
         self.description = description
 
+    def __str__(self):
+        return f"""Название вакансии: {self.name}
+Ссылка: {self.url}
+Зарплата: {self.salary_from} - {self.salary_to}
+Описание вакансии: {self.description}
+"""
+
