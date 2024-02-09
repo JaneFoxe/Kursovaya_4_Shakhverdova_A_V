@@ -15,3 +15,6 @@ class Vacancy:
 Описание вакансии: {self.description}
 """
 
+    def __lt__(self, other):
+        return self.salary_from < other.salary_from
+
