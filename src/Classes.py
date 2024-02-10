@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 import requests
 
+from src.config import SECRET_KEY
+
 
 class AbstractAPI(ABC):
 
@@ -17,7 +19,7 @@ class AbstractAPI(ABC):
 class Super_job(AbstractAPI):
     def get_vacancies(self, text):
         headers = {
-            "X-Api-App-Id": "v3.r.138164921.800046555def46f665df567d74eae1830a078497.7da492b6fa77911d59b5f93011f3f359d2866a99"}
+            "X-Api-App-Id": SECRET_KEY}
         params = {"keyword": text}
         vacancies = requests.get("	https://api.superjob.ru/2.0/vacancies/", params=params, headers=headers).json()
         return vacancies["objects"]
@@ -38,7 +40,7 @@ class Super_job(AbstractAPI):
 
 class Hh_ru(AbstractAPI):
     def get_vacancies(self, text):
-        params = {"text": text, "per_page": 5}
+        params = {"text": text}
         vacancies = requests.get("https://api.hh.ru/vacancies?", params=params).json()
         return vacancies["items"]
 
@@ -64,7 +66,6 @@ class Hh_ru(AbstractAPI):
             vacancies_filter.append(data)
         return vacancies_filter
 
-#
-# sj = Hh_ru()
-# print(sj.filter_vacancies("python"))
+
+
 
